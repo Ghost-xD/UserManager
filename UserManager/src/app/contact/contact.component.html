@@ -1,0 +1,58 @@
+<div *ngIf="!isLoading" class="container-fluid">
+
+  <div class="container mt-3">
+
+    <div class="row">
+      <div class="col-sm-2">
+        <button id="addNew" class="btn btn-success" (click)="new()">New</button>
+      </div>
+      <div class="col-sm-6">
+        
+      </div>
+      <div class="col-sm-4">
+        <input id="search" class="form-control custom-outline" placeholder="Search" [(ngModel)]="searchTerm" (input)="onSearch()" />
+      </div>
+    </div>
+
+    <br/>
+
+    <div class="row">
+
+      <div class="table-responsive">
+
+        <table class="table">
+          <thead>
+            <tr>
+              <th>S.No.</th>
+              <th *ngFor="let header of headers">{{ header | uppercase }}</th>
+              <th>Edit</th>
+              <th>Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let row of filteredData?.slice((currentPage - 1) * pageSize, (currentPage * pageSize)); let i = index">
+              <td>{{ (currentPage - 1) * pageSize + i + 1 }}</td>
+              <td *ngFor="let header of headers">{{ row[header] }}</td>
+              <td>
+                <button class="btn btn-primary" (click)="edit(row)">Edit</button>
+              </td>
+              <td>
+                <button class="btn btn-danger" (click)="delete(row)">Delete</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <ngb-pagination [(page)]="currentPage"
+                        [pageSize]="pageSize"
+                        [collectionSize]="filteredData.length" [maxSize]="5" [rotate]="true" [boundaryLinks]="true"
+                        aria-label="Default pagination"></ngb-pagination>
+
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<app-loader *ngIf="isLoading"></app-loader>

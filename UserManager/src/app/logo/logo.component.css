@@ -1,0 +1,10 @@
+.content {
+  display: flex;
+  padding: 0 16px;
+  max-width: 960px;
+  align-items: center;
+}
+
+.bigFont {
+  font-size: 44px;
+}

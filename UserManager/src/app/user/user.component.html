@@ -1,0 +1,15 @@
+<app-logo></app-logo>
+
+<div *ngIf="!isLoading">
+  <app-contact *ngIf="!isEditing && !isNew"
+               (onNew)="loadNew()"
+               (onLoad)="loadData($event)"
+               (onEdit)="editContact($event)"
+               (onDelete)="deleteContact($event)"></app-contact>
+
+  <app-edit-contact *ngIf="isEditing" [contact]="data" (cancelEdit)="onCancel()" (saveChanges)="onSaveChanges($event)"></app-edit-contact>
+
+  <app-new-contact *ngIf="!isEditing && isNew" (cancelNew)="onCancelNew()" (saveNewChanges)="onSaveChangesNew($event)"></app-new-contact>
+</div>
+
+<app-loader *ngIf="isLoading"></app-loader>
